@@ -12,7 +12,7 @@ public class Position {
         return value;
     }
 
-    public Position increaseBy(final int increasedValue) {
-        return new Position(value + increasedValue);
+    public Position increaseBy(final int distanceMovedAtOnce) {
+        return new Position(value + distanceMovedAtOnce);
     }
 }
