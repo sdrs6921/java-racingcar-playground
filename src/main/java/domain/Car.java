@@ -2,6 +2,7 @@ package domain;
 
 import domain.vo.Name;
 import domain.vo.Position;
+import strategy.MovementStrategy;
 
 public class Car {
 
@@ -9,11 +10,19 @@ public class Car {
     private static final int DISTANCE_MOVED_AT_ONCE = 1;
 
     private final Name name;
-    private Position position;
+    private final Position position;
+
+    public Car(final Name name, final Position position) {
+        this.name = name;
+        this.position = position;
+    }
+
+    public Car(final String name, final int position) {
+        this(new Name(name), new Position(position));
+    }
 
     public Car(final String name) {
-        this.name = new Name(name);
-        this.position = new Position(INITIAL_LOCATION);
+        this(name, INITIAL_LOCATION);
     }
 
     public String name() {
@@ -24,9 +33,11 @@ public class Car {
         return position.value();
     }
 
-    public void move(boolean canMove) {
-        if (canMove) {
-            position = position.increaseBy(DISTANCE_MOVED_AT_ONCE);
+    public Car move(MovementStrategy movementStrategy) {
+        if (movementStrategy.canMove()) {
+            return new Car(name, position.increaseBy(DISTANCE_MOVED_AT_ONCE));
         }
+
+        return this;
     }
 }
