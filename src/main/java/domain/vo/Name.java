@@ -1,5 +1,7 @@
 package domain.vo;
 
+import java.util.Objects;
+
 public class Name {
 
     private static final int MIN_NAME_LENGTH = 1;
@@ -20,5 +22,18 @@ public class Name {
 
     public String value() {
         return value;
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (this == other) return true;
+        if (!(other instanceof Name)) return false;
+        final Name name = (Name) other;
+        return value.equals(name.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 }
