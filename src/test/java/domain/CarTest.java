@@ -30,12 +30,12 @@ class CarTest {
                 () -> assertThat(position).isZero()
         );
     }
-    
+
     @ParameterizedTest
     @CsvSource(value = {"true,1", "false,0"})
     @DisplayName("차의 위치를 증가시킨다")
     void move(boolean randomValue, int expected) {
-        MovementStrategy movementStrategy = new RandomMovementStrategyStrategy(){
+        MovementStrategy movementStrategy = new RandomMovementStrategyStrategy() {
             @Override
             protected boolean generateRandom() {
                 return randomValue;
@@ -44,6 +44,18 @@ class CarTest {
 
         Car actualCar = car.move(movementStrategy);
         int actual = actualCar.position();
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"name,name,true", "name,other,false"})
+    @DisplayName("차의 이름이 같으면 참, 다른 이름일 경우 거짓을 반환한다")
+    void equalsAndHashCode(String name, String otherName, boolean expected) {
+        Car car = new Car(name);
+        Car other = new Car(otherName);
+
+        boolean actual = car.equals(other);
 
         assertThat(actual).isEqualTo(expected);
     }

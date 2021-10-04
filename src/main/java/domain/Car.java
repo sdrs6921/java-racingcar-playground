@@ -4,6 +4,8 @@ import domain.vo.Name;
 import domain.vo.Position;
 import strategy.MovementStrategy;
 
+import java.util.Objects;
+
 public class Car {
 
     private static final int INITIAL_LOCATION = 0;
@@ -39,5 +41,18 @@ public class Car {
         }
 
         return this;
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (this == other) return true;
+        if (!(other instanceof Car)) return false;
+        final Car car = (Car) other;
+        return name.equals(car.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }
