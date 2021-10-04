@@ -21,15 +21,18 @@ public class Cars {
     private static List<Car> convertFrom(final String[] carNames) {
         return Arrays.stream(carNames)
                 .map(Car::new)
-                .collect(Collectors.toList());
+                .collect(Collectors.toUnmodifiableList());
     }
 
     public List<Car> elements() {
         return elements;
     }
 
-    public void driveAll(final MovementStrategy movementStrategy) {
-        elements.forEach(car -> car.move(movementStrategy));
+    public Cars driveAll(final MovementStrategy movementStrategy) {
+        List<Car> droveCar = elements.stream()
+                .map(car -> car.move(movementStrategy))
+                .collect(Collectors.toUnmodifiableList());
+        return new Cars(droveCar);
     }
 
     public List<Car> findMaxPositionCars() {

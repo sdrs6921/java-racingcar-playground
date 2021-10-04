@@ -1,5 +1,8 @@
 package domain;
 
+import domain.vo.Name;
+import domain.vo.Position;
+import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,17 +16,16 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class CarsTest {
-
-    private Cars cars;
 
     @Test
     @DisplayName("차 이름들을 인자로 받아 초기화한다")
     void create_with_car_names() {
         String[] carNames = new String[]{"name1", "name2", "name3"};
-        cars = new Cars(carNames);
+        Cars cars = new Cars(carNames);
         List<Car> actual = cars.elements();
         assertThat(actual).containsExactly(new Car("name1"), new Car("name2"), new Car("name3"));
     }
@@ -32,7 +34,7 @@ class CarsTest {
     @DisplayName("차 요소들로 초기화 한다")
     void create_with_cars() {
         List<Car> elements = Arrays.asList(new Car("name1"), new Car("name2"), new Car("name3"));
-        cars = new Cars(elements);
+        Cars cars = new Cars(elements);
         List<Car> actual = cars.elements();
 
         assertThat(actual).containsExactly(new Car("name1"), new Car("name2"), new Car("name3"));
@@ -41,9 +43,9 @@ class CarsTest {
     @ParameterizedTest
     @MethodSource(value = "driveAllTestCase")
     @DisplayName("모든 차를 운행시킨다")
-    void driveAll(final boolean randomValue, List<Car> expected) {
+    void driveAll(final boolean randomValue, Tuple firstExpected, Tuple secondExpected) {
         List<Car> elements = Arrays.asList(new Car("name1", 1), new Car("name2", 2));
-        cars = new Cars(elements);
+        Cars cars = new Cars(elements);
         MovementStrategy movementStrategy = new RandomMovementStrategyStrategy() {
             @Override
             protected boolean generateRandom() {
@@ -51,15 +53,21 @@ class CarsTest {
             }
         };
 
-        cars.driveAll(movementStrategy);
+        Cars droveCars = cars.driveAll(movementStrategy);
 
-        assertThat(cars.elements()).isEqualTo(expected);
+
+        assertThat(droveCars.elements()).extracting("name", "position")
+                .containsExactly(firstExpected, secondExpected);
     }
 
     static Stream<Arguments> driveAllTestCase() {
         return Stream.of(
-                arguments(true, Arrays.asList(new Car("name1", 2), new Car("name2", 3))),
-                arguments(false, Arrays.asList(new Car("name1", 1), new Car("name2", 2)))
+                arguments(true,
+                        tuple(new Name("name1"), new Position(2)),
+                        tuple(new Name("name2"), new Position(3))),
+                arguments(false,
+                        tuple(new Name("name1"), new Position(1)),
+                        tuple(new Name("name2"), new Position(2)))
         );
     }
 
@@ -68,7 +76,7 @@ class CarsTest {
     void findMaxPositionCars() {
         List<Car> elements = Arrays.asList(new Car("name1", 2), new Car("name2", 2),
                 new Car("name3", 1));
-        cars = new Cars(elements);
+        Cars cars = new Cars(elements);
         List<Car> maxPositionCars = cars.findMaxPositionCars();
 
         assertThat(maxPositionCars).containsExactly(new Car("name1", 2), new Car("name2", 2));
