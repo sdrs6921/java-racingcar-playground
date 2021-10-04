@@ -53,16 +53,4 @@ class PositionTest {
 
         assertThat(actual).isEqualTo(expected);
     }
-
-    @ParameterizedTest
-    @CsvSource(value = {"2,1,true", "1,2,false"})
-    @DisplayName("위치값이 같으면 참, 다르면 거짓을 반환한다")
-    void isLargerThan(int value, int otherValue, boolean expected) {
-        Position position = new Position(value);
-        Position other = new Position(otherValue);
-
-        boolean actual = position.isLargerThan(other);
-
-        assertThat(actual).isEqualTo(expected);
-    }
 }
