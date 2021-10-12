@@ -1,8 +1,11 @@
 package view;
 
+import dto.InputCarNameDto;
+import dto.InputNumberOfAttemptDto;
+
 public interface InputView {
 
-    String[] inputCarNames();
+    InputCarNameDto inputCarNames();
 
-    int inputNumberOfAttempt();
+    InputNumberOfAttemptDto inputNumberOfAttempt();
 }
