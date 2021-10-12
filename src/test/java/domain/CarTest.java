@@ -22,9 +22,11 @@ class CarTest {
     @Test
     @DisplayName("이름를 입력받아 자동차 생성해서 이름과 초기 위치를 반환한다")
     void create() {
+        //given
         String name = car.name();
         int position = car.position();
 
+        //then
         assertAll(
                 () -> assertThat(name).isEqualTo("name"),
                 () -> assertThat(position).isZero()
@@ -35,16 +37,19 @@ class CarTest {
     @CsvSource(value = {"true,1", "false,0"})
     @DisplayName("차의 위치를 증가시킨다")
     void move(boolean randomValue, int expected) {
+        //given
         MovementStrategy movementStrategy = new RandomMovementStrategyStrategy() {
             @Override
             protected boolean generateRandom() {
                 return randomValue;
             }
         };
-
         Car actualCar = car.move(movementStrategy);
+
+        //when
         int actual = actualCar.position();
 
+        //then
         assertThat(actual).isEqualTo(expected);
     }
 
@@ -52,11 +57,14 @@ class CarTest {
     @CsvSource(value = {"name,name,true", "name,other,false"})
     @DisplayName("차의 이름이 같으면 참, 다른 이름일 경우 거짓을 반환한다")
     void equalsAndHashCode(String name, String otherName, boolean expected) {
+        //given
         Car car = new Car(name);
         Car other = new Car(otherName);
 
+        //when
         boolean actual = car.equals(other);
 
+        //then
         assertThat(actual).isEqualTo(expected);
     }
 }

@@ -24,19 +24,28 @@ class CarsTest {
     @Test
     @DisplayName("차 이름들을 인자로 받아 초기화한다")
     void create_with_car_names() {
+        //given
         String[] carNames = new String[]{"name1", "name2", "name3"};
         Cars cars = new Cars(carNames);
+
+        //when
         List<Car> actual = cars.elements();
+
+        //then
         assertThat(actual).containsExactly(new Car("name1"), new Car("name2"), new Car("name3"));
     }
 
     @Test
     @DisplayName("차 요소들로 초기화 한다")
     void create_with_cars() {
+        //given
         List<Car> elements = Arrays.asList(new Car("name1"), new Car("name2"), new Car("name3"));
         Cars cars = new Cars(elements);
+
+        //when
         List<Car> actual = cars.elements();
 
+        //then
         assertThat(actual).containsExactly(new Car("name1"), new Car("name2"), new Car("name3"));
     }
 
@@ -44,6 +53,7 @@ class CarsTest {
     @MethodSource(value = "driveAllTestCase")
     @DisplayName("모든 차를 운행시킨다")
     void driveAll(final boolean randomValue, Tuple firstExpected, Tuple secondExpected) {
+        //given
         List<Car> elements = Arrays.asList(new Car("name1", 1), new Car("name2", 2));
         Cars cars = new Cars(elements);
         MovementStrategy movementStrategy = new RandomMovementStrategyStrategy() {
@@ -53,9 +63,10 @@ class CarsTest {
             }
         };
 
+        //when
         Cars droveCars = cars.driveAll(movementStrategy);
 
-
+        //then
         assertThat(droveCars.elements()).extracting("name", "position")
                 .containsExactly(firstExpected, secondExpected);
     }
@@ -74,11 +85,15 @@ class CarsTest {
     @Test
     @DisplayName("위치가 가장 높은 차를 반환한다")
     void findMaxPositionCars() {
+        //given
         List<Car> elements = Arrays.asList(new Car("name1", 2), new Car("name2", 2),
                 new Car("name3", 1));
         Cars cars = new Cars(elements);
+
+        //when
         List<Car> maxPositionCars = cars.findMaxPositionCars();
 
+        //then
         assertThat(maxPositionCars).containsExactly(new Car("name1", 2), new Car("name2", 2));
     }
 }
