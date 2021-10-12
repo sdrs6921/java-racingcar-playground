@@ -40,11 +40,14 @@ class PositionTest {
     @CsvSource(value = {"1,1,true", "1,2,false"})
     @DisplayName("위치값이 같으면 참, 다르면 거짓을 반환한다")
     void equals(int value, int otherValue, boolean expected) {
+        //given
         Position position = new Position(value);
         Position other = new Position(otherValue);
 
+        //when
         boolean actual = position.equals(other);
 
+        //then
         assertThat(actual).isEqualTo(expected);
     }
 
@@ -52,11 +55,14 @@ class PositionTest {
     @CsvSource(value = {"1,1,true", "1,2,false"})
     @DisplayName("위치값이 같으면 참, 다르면 거짓을 반환한다")
     void hashCode(int value, int otherValue, boolean expected) {
+        //given
         Position position = new Position(value);
         Position other = new Position(otherValue);
 
+        //when
         boolean actual = position.hashCode() == other.hashCode();
 
+        //then
         assertThat(actual).isEqualTo(expected);
     }
 }

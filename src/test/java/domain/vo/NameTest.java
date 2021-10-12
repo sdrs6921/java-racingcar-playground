@@ -54,9 +54,14 @@ class NameTest {
     @CsvSource(value = {"name,name,true", "name,other,false"})
     @DisplayName("이름이 같으면 같은 해시값을 반환하고, 다르면 다른 해시값을 반환한다")
     void hashCode(String value, String otherValue, boolean expected) {
+        //given
         Name name = new Name(value);
         Name other = new Name(otherValue);
+
+        //when
         boolean actual = name.hashCode() == other.hashCode();
+
+        //then
         assertThat(actual).isEqualTo(expected);
     }
 }
