@@ -2,7 +2,6 @@ package domain;
 
 import strategy.MovementStrategy;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,14 +13,16 @@ public class Cars {
         this.elements = elements;
     }
 
-    public Cars(final String[] carNames) {
+    public Cars(final Names carNames) {
         this(convertFrom(carNames));
     }
 
-    private static List<Car> convertFrom(final String[] carNames) {
-        return Arrays.stream(carNames)
+    private static List<Car> convertFrom(final Names carNames) {
+        return carNames.elements()
+                .stream()
                 .map(Car::new)
                 .collect(Collectors.toUnmodifiableList());
+
     }
 
     public List<Car> elements() {
