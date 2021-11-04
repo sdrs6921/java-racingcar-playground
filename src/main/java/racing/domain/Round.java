@@ -33,7 +33,7 @@ public class Round {
         return cars.findMaxPositionCars();
     }
 
-    public boolean isOver() {
-        return numberOfAttempt.isOver();
+    public boolean isPlaying() {
+        return !numberOfAttempt.isOver();
     }
 }

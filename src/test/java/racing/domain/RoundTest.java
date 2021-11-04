@@ -68,9 +68,9 @@ class RoundTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"0, true", "1, false"})
+    @CsvSource(value = {"0, false", "1, true"})
     @DisplayName("시도 횟수가 없으면 참 아니면 거짓을 반환한다")
-    void isOver(final int numberOfAttemptValue, final boolean expected) {
+    void isPlaying(final int numberOfAttemptValue, final boolean expected) {
         //given
         NumberOfAttempt numberOfAttempt = new NumberOfAttempt(numberOfAttemptValue);
 
@@ -80,7 +80,7 @@ class RoundTest {
         Round round = new Round(cars, numberOfAttempt);
 
         //when
-        boolean actual = round.isOver();
+        boolean actual = round.isPlaying();
 
         //then
         assertThat(actual).isEqualTo(expected);

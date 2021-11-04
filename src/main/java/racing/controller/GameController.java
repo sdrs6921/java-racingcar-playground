@@ -36,7 +36,7 @@ public class GameController {
     private Round race(final Round initialRound) {
         Round round = initialRound;
 
-        while (round.isOver()) {
+        while (round.isPlaying()) {
             round = round.play(movementStrategy);
             Cars nextRoundCars = round.cars();
             OutputRoundResultDto outputRoundResultDto = new OutputRoundResultDto(nextRoundCars);
