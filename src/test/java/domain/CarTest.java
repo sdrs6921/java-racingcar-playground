@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import strategy.MovementStrategy;
-import strategy.RandomMovementStrategyStrategy;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -38,12 +37,7 @@ class CarTest {
     @DisplayName("차의 위치를 증가시킨다")
     void move(boolean randomValue, int expected) {
         //given
-        MovementStrategy movementStrategy = new RandomMovementStrategyStrategy() {
-            @Override
-            protected boolean generateRandom() {
-                return randomValue;
-            }
-        };
+        MovementStrategy movementStrategy = () -> randomValue;
         Car actualCar = car.move(movementStrategy);
 
         //when
@@ -56,13 +50,28 @@ class CarTest {
     @ParameterizedTest
     @CsvSource(value = {"name,name,true", "name,other,false"})
     @DisplayName("차의 이름이 같으면 참, 다른 이름일 경우 거짓을 반환한다")
-    void equalsAndHashCode(String name, String otherName, boolean expected) {
+    void equals(String name, String otherName, boolean expected) {
         //given
         Car car = new Car(name);
         Car other = new Car(otherName);
 
         //when
         boolean actual = car.equals(other);
+
+        //then
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"name,name,true", "name,other,false"})
+    @DisplayName("차의 이름이 같으면 참, 다른 이름일 경우 거짓을 반환한다")
+    void hash(String name, String otherName, boolean expected) {
+        //given
+        Car car = new Car(name);
+        Car other = new Car(otherName);
+
+        //when
+        boolean actual = car.hashCode() == other.hashCode();
 
         //then
         assertThat(actual).isEqualTo(expected);

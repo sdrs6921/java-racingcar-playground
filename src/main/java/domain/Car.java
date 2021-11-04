@@ -27,6 +27,10 @@ public class Car {
         this(name, INITIAL_LOCATION);
     }
 
+    public Car(final Name name) {
+        this(name, new Position(INITIAL_LOCATION));
+    }
+
     public String name() {
         return name.value();
     }
