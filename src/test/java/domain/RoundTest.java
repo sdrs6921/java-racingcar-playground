@@ -108,9 +108,9 @@ class RoundTest {
     void winners() {
         //given
         NumberOfAttempt numberOfAttempt = new NumberOfAttempt(1);
-        Car winner1 = new Car("winner1", 3);
-        Car winner2 = new Car("winner2", 3);
-        Car loser = new Car("loser", 2);
+        Car winner1 = new Car("win1", 3);
+        Car winner2 = new Car("win2", 3);
+        Car loser = new Car("lose", 2);
         List<Car> elements = Arrays.asList(winner1, winner2, loser);
         Cars cars = new Cars(elements);
 
@@ -120,10 +120,10 @@ class RoundTest {
         List<Car> winners = round.winners();
 
         //then
-        assertThat(winners).extracting("name", "position")
+        assertThat(winners).extracting("name.value", "position.value")
                 .containsExactly(
-                        tuple("winner1", 3),
-                        tuple("winner2", 3)
+                        tuple("win1", 3),
+                        tuple("win2", 3)
                 );
     }
 }
