@@ -24,7 +24,7 @@ public class InputCarNameDto {
     }
 
     public Names toNames() {
-        List<Name> elements = this.names.stream()
+        List<Name> elements = names.stream()
                 .map(Name::new)
                 .collect(Collectors.toList());
         return new Names(elements);

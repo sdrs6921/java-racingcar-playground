@@ -1,5 +1,7 @@
 package dto;
 
+import domain.vo.NumberOfAttempt;
+
 public class InputNumberOfAttemptDto {
     private final int numberOfAttempt;
 
@@ -21,7 +23,7 @@ public class InputNumberOfAttemptDto {
         return Integer.parseInt(numberOfAttempt);
     }
 
-    public int getNumberOfAttempt() {
-        return numberOfAttempt;
+    public NumberOfAttempt toNumberOfAttempt() {
+        return new NumberOfAttempt(numberOfAttempt);
     }
 }
