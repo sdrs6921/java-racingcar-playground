@@ -39,12 +39,12 @@ class NumberOfAttemptTest {
     @ParameterizedTest
     @CsvSource(value = "2, 1")
     @DisplayName("한 번 시도하면 시도 횟수가 1 차감된다")
-    void attempt(final int value, final int expectedValue) {
+    void decrease(final int value, final int expectedValue) {
         //given
         NumberOfAttempt numberOfAttempt = new NumberOfAttempt(value);
 
         //when
-        NumberOfAttempt actual = numberOfAttempt.attempt();
+        NumberOfAttempt actual = numberOfAttempt.decrease();
         int actualValue = actual.value();
 
         //then

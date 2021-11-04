@@ -5,6 +5,7 @@ import java.util.Objects;
 public class NumberOfAttempt {
 
     private static final int ZERO = 0;
+    private static final int SUBTRACTED_VALUE = 1;
 
     private int value;
 
@@ -20,8 +21,8 @@ public class NumberOfAttempt {
         return value;
     }
 
-    public NumberOfAttempt attempt() {
-        return new NumberOfAttempt(value - 1);
+    public NumberOfAttempt decrease() {
+        return new NumberOfAttempt(value - SUBTRACTED_VALUE);
     }
 
     public boolean isOver() {
