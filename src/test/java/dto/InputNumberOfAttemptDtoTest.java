@@ -1,5 +1,6 @@
 package dto;
 
+import domain.vo.NumberOfAttempt;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,10 +17,11 @@ class InputNumberOfAttemptDtoTest {
         InputNumberOfAttemptDto inputNumberOfAttemptDto = new InputNumberOfAttemptDto(expected);
 
         //when
-        int actual = inputNumberOfAttemptDto.getNumberOfAttempt();
+        NumberOfAttempt actual = inputNumberOfAttemptDto.toNumberOfAttempt();
 
         //then
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actual).extracting("value")
+                .isEqualTo(expected);
     }
 
     @Test
