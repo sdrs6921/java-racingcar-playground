@@ -6,13 +6,13 @@ import java.util.List;
 
 public class Names {
 
-    private List<Name> elements;
+    private final List<Name> elements;
 
     public Names(final List<Name> elements) {
         this.elements = elements;
     }
 
-    public List<Name> getElements() {
+    public List<Name> elements() {
         return elements;
     }
 }

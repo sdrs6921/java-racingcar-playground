@@ -12,14 +12,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 class NamesTest {
 
     @Test
-    @DisplayName("이름들을 입력받아 값을 반환한다")
+    @DisplayName("이름 객체 리스트를 입력받아 이름 일급 컬렉션을 생성한다")
     void getElements() {
         //given
         List<Name> expected = Arrays.asList(new Name("name1"), new Name("name2"));
         Names names = new Names(expected);
 
         //when
-        List<Name> actual = names.getElements();
+        List<Name> actual = names.elements();
 
         //then
         assertThat(actual).isEqualTo(expected);
