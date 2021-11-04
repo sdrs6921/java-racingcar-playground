@@ -18,9 +18,18 @@ public class InputCarNameDto {
         this(parseFrom(names));
     }
 
-    private static List<String> parseFrom(final String[] names) {
-        return Arrays.stream(names)
-                .collect(Collectors.toList());
+    private static List<String> parseFrom(final String[] carNames) {
+        List<String> names = Arrays.stream(carNames)
+                .distinct()
+                .collect(Collectors.toUnmodifiableList());
+        validateDuplicatedName(carNames, names);
+        return names;
+    }
+
+    private static void validateDuplicatedName(final String[] carNames, final List<String> names) {
+        if (names.size() < carNames.length) {
+            throw new IllegalArgumentException("중복된 이름이 존재합니다");
+        }
     }
 
     public Names toNames() {
