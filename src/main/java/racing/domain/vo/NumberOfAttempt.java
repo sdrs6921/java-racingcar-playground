@@ -7,7 +7,7 @@ public class NumberOfAttempt {
     private static final int ZERO = 0;
     private static final int SUBTRACTED_VALUE = 1;
 
-    private int value;
+    private final int value;
 
     public NumberOfAttempt(final int value) {
         if (value < ZERO) {
